@@ -1,0 +1,153 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API of my Website",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/signup": {
+            "post": {
+                "summary": "Register a new user",
+                "description": "Create a new user account.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "description": "User's email. Must be a valid email format."
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "minLength": 8,
+                                        "description": "User's password. Must be at least 8 characters."
+                                    },
+                                    "confirmPassword": {
+                                        "type": "string",
+                                        "minLength": 8,
+                                        "description": "Confirmation of the user's password. Must match the password field."
+                                    },
+                                    "company": {
+                                        "type": "string",
+                                        "description": "Company of the user. It's predefined as 'FH Technikum Wien' and cannot be changed."
+                                    },
+                                    "street": {
+                                        "type": "string",
+                                        "description": "Street where the user lives."
+                                    },
+                                    "city": {
+                                        "type": "string",
+                                        "description": "City where the user lives."
+                                    },
+                                    "postalCode": {
+                                        "type": "string",
+                                        "pattern": "[0-9]*",
+                                        "description": "User's postal code. Must be numeric."
+                                    }
+                                },
+                                "required": [
+                                    "email",
+                                    "password",
+                                    "confirmPassword"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User created successfully."
+                    },
+                    "400": {
+                        "description": "Invalid input. Check error message for more details.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "Invalid input, such as missing required fields or mismatched passwords. Error messages include 'Email is mandatory', 'Invalid email address', 'Password is mandatory', 'Password must be at least 8 characters long', 'Password confirmation is mandatory', 'Passwords do not match', 'Postal Code must contain only numbers'"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "summary": "Log in a user",
+                "description": "Log in with a user account.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "description": "User's email. Must be a valid email format."
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "description": "User's password."
+                                    }
+                                },
+                                "required": [
+                                    "email",
+                                    "password"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User logged in successfully."
+                    },
+                    "400": {
+                        "description": "Invalid input. Check error message for more details.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "Invalid input. Error messages can include 'E-Mail-Address is mandatory', 'Invalid E-Mail-Address', 'Password is mandatory'"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized. Invalid login credentials.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "Specific error message."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

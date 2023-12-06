@@ -1,0 +1,35 @@
+<div class="container">
+    <h1>Please, log in</h1>
+    <form class="login-form" #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+    <div>
+        <mat-form-field appearance="outline">
+            <mat-label for="email" class="login-form__input-label">E-Mail-Address:</mat-label>
+            <input matInput type="email" id="email" name="email" [(ngModel)]="email" #emailField="ngModel" class="login-form__input" required email>
+        <mat-error *ngIf="emailField?.invalid && (emailField?.dirty || emailField?.touched)" class="login-form__error">
+            <span *ngIf="emailField?.errors?.['required']">E-Mail-Address is mandatory</span>
+            <span *ngIf="emailField?.errors?.['email']">Invalid E-Mail-Address</span>
+        </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label for="password" class="login-form__input-label">Password:</mat-label>
+            <input matInput [type]="hide_password ? 'password' : 'text'" id="password" name="password" [(ngModel)]="password" #passwordField="ngModel" class="login-form__input" required>
+            <button mat-icon-button matSuffix (click)="hide_password = !hide_password" type="button">
+                <mat-icon>{{hide_password ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        <mat-error *ngIf="passwordField?.invalid && (passwordField?.dirty || passwordField?.touched)" class="login-form__error">
+            <span *ngIf="passwordField?.errors?.['required']">Password is mandatory</span>
+        </mat-error>         
+        </mat-form-field>
+
+    </div>
+
+        <div *ngIf="loginAttempted">
+            <h4 *ngIf="loginSuccessful" class="text-success">Log in successful!</h4>
+            <h4 *ngIf="!loginSuccessful" class="text-error">Invalid email or password.</h4>
+        </div>
+
+        <button mat-raised-button type="submit" class="login-form__button" [disabled]="loginForm.invalid">Log In</button>
+    </form>
+
+</div>

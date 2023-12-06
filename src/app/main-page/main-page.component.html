@@ -1,0 +1,37 @@
+<h1>Welcome to my Website!</h1>
+<div class="container">
+  <div class="button-container">
+    <button mat-raised-button color="primary" (click)="submitHighscores()">Submit Highscores</button>
+    <button mat-raised-button color="accent" (click)="retrieveHighscores()">Retrieve Highscores</button>
+    <button mat-raised-button color="warn" (click)="logout()">Logout</button>
+  </div>
+
+  <div class="form-container">
+    <mat-form-field appearance="outline">
+      <mat-label>Username</mat-label>
+      <input matInput type="text" [(ngModel)]="username">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Score</mat-label>
+      <input matInput type="number" [(ngModel)]="score">
+    </mat-form-field>
+  </div>
+
+
+  <div class="highscores-container">
+    <h2>Highscores</h2>
+    <ul>
+      <li *ngFor="let highscore of highscores">
+        <span>{{ highscore.username }}</span>
+        <span>{{ highscore.score }}</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="message-container" [class.success]="successMessage" [class.error]="errorMessage">
+    <p *ngIf="successMessage">{{ successMessage }}</p>
+    <p *ngIf="errorMessage">{{ errorMessage }}</p>
+  </div>
+
+</div>

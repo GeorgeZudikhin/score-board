@@ -1,0 +1,75 @@
+<div class="container">
+    <h1>Please, sign up</h1>
+    <form class="signup-form" #signupForm="ngForm" (ngSubmit)="onSubmit(signupForm)">
+    <div>
+        <mat-form-field appearance="outline">
+            <mat-label for="email" class="signup-form__input-label">E-Mail-Address:</mat-label>
+            <input matInput type="email" id="email" name="email" [(ngModel)]="email" #emailField="ngModel" class="signup-form__input" required email>
+        <mat-error *ngIf="emailField?.invalid && (emailField?.dirty || emailField?.touched)" class="signup-form__error">
+            <span *ngIf="emailField?.errors?.['required']">E-Mail-Address is mandatory</span>
+            <span *ngIf="emailField?.errors?.['email']">Invalid E-Mail-Address</span>
+        </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label for="password" class="signup-form__input-label">Password:</mat-label>
+            <input matInput [type]="hide_password ? 'password' : 'text'" minlength="8" id="password" name="password" [(ngModel)]="password" #passwordField="ngModel" class="signup-form__input" required>
+            <button mat-icon-button matSuffix (click)="hide_password = !hide_password" type="button">
+                <mat-icon>{{hide_password ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        <mat-error *ngIf="(passwordField?.invalid && (passwordField?.dirty || passwordField?.touched)) || passwordField?.errors?.['minlength']" class="signup-form__error">
+            <span *ngIf="passwordField?.errors?.['required']">Password is mandatory</span>
+            <span *ngIf="passwordField?.errors?.['minlength']">Password must be at least 8 characters long</span>
+        </mat-error>         
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label for="confirmPassword" class="signup-form__input-label">Confirm password:</mat-label>
+            <input matInput [type]="hide_confirm_password ? 'password' : 'text'" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword" #confirmPasswordField="ngModel"
+            class="signup-form__input" required>
+            <button mat-icon-button matSuffix (click)="hide_confirm_password = !hide_confirm_password" type="button">
+                <mat-icon>{{hide_confirm_password ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        <mat-error *ngIf="confirmPasswordField?.invalid && (confirmPasswordField?.dirty || confirmPasswordField?.touched)" class="signup-form__error">
+            <span *ngIf="confirmPasswordField?.errors?.['required']">Password confirmation is mandatory</span>
+        </mat-error>
+        </mat-form-field>
+
+        <mat-error *ngIf="passwordField.value !== confirmPasswordField.value" class="signup-form__error notmatching">
+            <mat-icon class="material-icons">error</mat-icon>Passwords do not match!
+        </mat-error>
+
+        <mat-form-field appearance="outline">
+            <mat-label for="company" class="signup-form__input-label">Company:</mat-label>         
+            <input matInput type="text" id="company" name="company" value="FH Technikum Wien" class="signup-form__input" disabled>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label for="street" class="signup-form__input-label">Street:</mat-label>
+            <input matInput type="text" id="street" name="street" [(ngModel)]="street" class="signup-form__input">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label for="city" class="signup-form__input-label">City:</mat-label>
+            <input matInput type="text" id="city" name="city" [(ngModel)]="city" #cityField="ngModel" class="signup-form__input">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label for="postalCode" class="signup-form__input-label">Postal Code:</mat-label>
+            <input matInput type="text" pattern="[0-9]*" id="postalCode" name="postalCode" [(ngModel)]="postalCode" #postalCodeField="ngModel" class="signup-form__input">
+            <mat-error *ngIf="postalCodeField?.errors?.['pattern']" class="signup-form__error">Postal Code must contain only numbers</mat-error>
+        </mat-form-field>
+
+    </div>
+
+        <div *ngIf="signupAttempted">
+            <h4 *ngIf="signupSuccessful" class="text-success">Sign up successful!</h4>
+            <h4 *ngIf="!signupSuccessful" class="text-error">Username already exists. Please choose a different username.</h4>
+        </div>
+
+        <button mat-raised-button type="submit" class="signup-form__button" [disabled]="signupForm.invalid || passwordField.value !== confirmPasswordField.value">Sign Up</button>
+
+        
+    
+    </form>
+</div>

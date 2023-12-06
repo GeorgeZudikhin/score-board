@@ -1,0 +1,64 @@
+h1, h4 {
+  text-align: center;
+  margin-top: 2em;
+  font-weight: bold;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.form-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.highscores-container {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+h2 {
+  margin-bottom: 10px;
+}
+
+ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.message-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.message-container p {
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.success {
+  background-color: #c8e6c9;
+  color: #2e7d32;
+}
+
+.error {
+  background-color: #ffcdd2;
+  color: #c62828;
+}
